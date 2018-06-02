@@ -5,11 +5,18 @@ from __future__ import unicode_literals
 from setuptools import setup
 
 
+with open('README.md') as f:
+    long_description = f.read()
+
+
 setup(
     name='rustenv',
     description='Virtual, activate-able environments for Rust',
     url='https://github.com/chriskuehl/rustenv',
     version='0.0.1',
+
+    long_description=long_description,
+    long_description_content_type='text/markdown',
 
     author='Chris Kuehl',
     author_email='ckuehl@ckuehl.me',
