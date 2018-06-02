@@ -1,0 +1,29 @@
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v1.3.0
+    hooks:
+    -   id: autopep8-wrapper
+    -   id: check-added-large-files
+    -   id: check-byte-order-marker
+    -   id: check-docstring-first
+    -   id: check-merge-conflict
+    -   id: check-yaml
+    -   id: debug-statements
+    -   id: double-quote-string-fixer
+    -   id: end-of-file-fixer
+    -   id: fix-encoding-pragma
+    -   id: flake8
+    -   id: name-tests-test
+    -   id: trailing-whitespace
+-   repo: https://github.com/asottile/reorder_python_imports
+    rev: v1.0.1
+    hooks:
+    -   id: reorder-python-imports
+        args: [
+            '--add-import', 'from __future__ import absolute_import',
+            '--add-import', 'from __future__ import unicode_literals',
+        ]
+-   repo: https://github.com/asottile/add-trailing-comma
+    rev: v0.6.4
+    hooks:
+    -   id: add-trailing-comma
