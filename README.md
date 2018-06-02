@@ -1,6 +1,8 @@
 rustenv
 ==========
 
+[![PyPI version](https://badge.fury.io/py/rustenv.svg)](https://pypi.org/project/rustenv/)
+
 Create virtual, activate-able environments for Rust, similar to `virtualenv`
 for Python.
 
