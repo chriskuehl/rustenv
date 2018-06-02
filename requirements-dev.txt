@@ -2,4 +2,6 @@ coverage
 mock
 pre-commit
 pytest
+setuptools>=38.6.0
 twine
+wheel>=0.31.0
