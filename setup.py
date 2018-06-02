@@ -9,7 +9,7 @@ setup(
     name='rustenv',
     description='Virtual, activate-able environments for Rust',
     url='https://github.com/chriskuehl/rustenv',
-    version='0.0.0',
+    version='0.0.1',
 
     author='Chris Kuehl',
     author_email='ckuehl@ckuehl.me',
