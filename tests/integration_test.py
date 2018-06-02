@@ -12,7 +12,7 @@ import rustenv
 
 
 TEST_SCRIPT = '''\
-set -euo pipefail
+set -eu
 RUSTENV='{RUSTENV}'
 
 PATH=/bin:/usr/bin
