@@ -4,6 +4,7 @@ source =
     .
 omit =
     .tox/*
+    venv/*
     /usr/*
     setup.py
 
