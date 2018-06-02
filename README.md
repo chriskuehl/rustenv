@@ -1,6 +1,8 @@
 rustenv
 ==========
 
+[![Build Status](https://travis-ci.org/chriskuehl/rustenv.svg?branch=master)](https://travis-ci.org/chriskuehl/rustenv)
+[![Coverage Status](https://coveralls.io/repos/github/chriskuehl/rustenv/badge.svg?branch=master)](https://coveralls.io/github/chriskuehl/rustenv?branch=master)
 [![PyPI version](https://badge.fury.io/py/rustenv.svg)](https://pypi.org/project/rustenv/)
 
 Create virtual, activate-able environments for Rust, similar to `virtualenv`
