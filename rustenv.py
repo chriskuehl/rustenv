@@ -53,7 +53,7 @@ deactivate_rustenv() {{
 RUSTENV_PROXY = '''\
 #!/bin/sh
 set -eu
-rustinstall=$(dirname $(dirname $(readlink -f "$0")))/rust
+rustinstall="$(dirname "$(cd -L "$(dirname "$0")" && pwd)")/rust"
 export CARGO_HOME="$rustinstall"
 export RUSTUP_HOME="$rustinstall"
 exec "${rustinstall}/bin/$(basename "$0")" "$@"
