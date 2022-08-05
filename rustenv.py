@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Create Rust virtual environments.
 
 A virtual environment is a self-contained Rust installation, holding all the
@@ -15,20 +14,15 @@ For example:
     # Request a specific version of Rust
     [TODO: unimplemented]
 """
-from __future__ import absolute_import
-from __future__ import unicode_literals
+from __future__ import annotations
 
 import argparse
-import io
 import os
 import shutil
 import subprocess
 import tempfile
-
-try:
-    from urllib.request import urlopen
-except ImportError:  # pragma: no cover (py2)
-    from urllib2 import urlopen
+import urllib.request
+from typing import Sequence
 
 
 ACTIVATE = '''\
@@ -66,9 +60,9 @@ exec "${rustinstall}/bin/$(basename "$0")" "$@"
 '''
 
 
-def _rustup(rustup_home, cargo_home):
+def _rustup(rustup_home: str, cargo_home: str) -> None:
     with tempfile.NamedTemporaryFile() as tf:
-        shutil.copyfileobj(urlopen('https://sh.rustup.rs'), tf)
+        shutil.copyfileobj(urllib.request.urlopen('https://sh.rustup.rs'), tf)
         tf.flush()
 
         subprocess.check_call(
@@ -81,7 +75,7 @@ def _rustup(rustup_home, cargo_home):
         )
 
 
-def create_rustenv(destination):
+def create_rustenv(destination: str) -> None:
     rust_root = os.path.join(destination, 'rust')
     bin_root = os.path.join(destination, 'bin')
     for path in (destination, rust_root, bin_root):
@@ -107,7 +101,7 @@ def create_rustenv(destination):
     # TODO: look into what rustup is actually getting us -- maybe we should
     # just avoid it and install rustc and cargo ourselves?
     proxy = os.path.join(bin_root, 'rustenv-proxy')
-    with io.open(proxy, 'w') as f:
+    with open(proxy, 'w') as f:
         f.write(RUSTENV_PROXY)
     os.chmod(proxy, os.stat(proxy).st_mode | 0o111)
 
@@ -115,28 +109,30 @@ def create_rustenv(destination):
     for binname in os.listdir(rust_bins):
         os.symlink(proxy, os.path.join(bin_root, binname))
 
-    with io.open(os.path.join(bin_root, 'activate'), 'w') as f:
-        f.write(ACTIVATE.format(
-            RUSTENV_BIN_PATH='{}:{}'.format(bin_root, rust_bins),
-            RUSTENV_NAME=os.path.basename(destination),
-        ))
+    with open(os.path.join(bin_root, 'activate'), 'w') as f:
+        f.write(
+            ACTIVATE.format(
+                RUSTENV_BIN_PATH=f'{bin_root}:{rust_bins}',
+                RUSTENV_NAME=os.path.basename(destination),
+            ),
+        )
 
 
-def _new_directory_type(path):
+def _new_directory_type(path: str) -> str:
     path = os.path.abspath(path)
     if not os.path.isdir(os.path.dirname(path)):
         raise argparse.ArgumentTypeError(
-            'Parent directory of {} does not exist.'.format(path),
+            f'Parent directory of {path} does not exist.',
         )
     elif os.path.exists(path):
         raise argparse.ArgumentTypeError(
-            'Directory {} already exists.'.format(path),
+            f'Directory {path} already exists.',
         )
     else:
         return path
 
 
-def main(argv=None):
+def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description=__doc__,
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -148,7 +144,8 @@ def main(argv=None):
     )
     args = parser.parse_args(argv)
     create_rustenv(args.destination)
+    return 0
 
 
 if __name__ == '__main__':
-    exit(main())
+    raise SystemExit(main())

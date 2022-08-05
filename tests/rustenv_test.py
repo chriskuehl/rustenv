@@ -1,8 +1,8 @@
-# -*- coding: utf-8 -*-
-from __future__ import absolute_import
-from __future__ import unicode_literals
+from __future__ import annotations
 
-import mock
+import urllib.request
+from unittest import mock
+
 import pytest
 
 import rustenv
@@ -19,7 +19,7 @@ touch $CARGO_HOME/bin/rustc
 @pytest.fixture
 def fake_rustup():
     with mock.patch.object(
-            rustenv, 'urlopen', mock.mock_open(read_data=FAKE_RUSTUP),
+            urllib.request, 'urlopen', mock.mock_open(read_data=FAKE_RUSTUP),
     ):
         yield
 
