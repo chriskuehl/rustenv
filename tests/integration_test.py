@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-from __future__ import absolute_import
-from __future__ import unicode_literals
+from __future__ import annotations
 
 import collections
 import re
@@ -71,13 +69,15 @@ def test_rustenv_looks_sane(built_rustenv):
 )
 def test_runenv_shell(shell, not_found_message, built_rustenv, tmpdir):
     test_script = tmpdir.join('test.sh')
-    test_script.write(TEST_SCRIPT.format(
-        SHELL='bash',
-        RUSTENV=built_rustenv.strpath,
-    ))
+    test_script.write(
+        TEST_SCRIPT.format(
+            SHELL='bash',
+            RUSTENV=built_rustenv.strpath,
+        ),
+    )
     output = subprocess.check_output((shell, test_script.strpath))
 
-    stages = collections.defaultdict(dict)
+    stages: dict[str, dict[str, str]] = collections.defaultdict(dict)
     for stage, key, value in re.findall(
             r'\[\[([^-]+)-([^:]+):(.*?)\]\]', output.decode('utf8'),
     ):
