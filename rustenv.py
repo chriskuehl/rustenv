@@ -117,6 +117,9 @@ def create_rustenv(destination: str) -> None:
             ),
         )
 
+    with open(os.path.join(destination, '.gitignore'), 'w') as f:
+        f.write('# created by rustenv automatically\n*\n')
+
 
 def _new_directory_type(path: str) -> str:
     path = os.path.abspath(path)
