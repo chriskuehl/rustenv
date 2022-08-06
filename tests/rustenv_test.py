@@ -39,3 +39,4 @@ def test_creates_files(tmpdir, fake_rustup):
     assert dest.join('bin', 'rustenv-proxy').check(file=True)
     assert dest.join('bin', 'cargo').readlink() == dest.join('bin', 'rustenv-proxy').strpath
     assert dest.join('bin', 'rustc').readlink() == dest.join('bin', 'rustenv-proxy').strpath
+    assert dest.join('.gitignore').check(file=True)
