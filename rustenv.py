@@ -47,6 +47,7 @@ deactivate_rustenv() {{
     unset _RUSTENV_BIN_PATH
     unset _RUSTENV_OLD_PS1
     unset _RUSTENV_OLD_PATH
+    unset -f deactivate_rustenv
 }}
 '''
 
