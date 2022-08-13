@@ -22,6 +22,7 @@ report() {{
     echo "[[$1-rustc:$(rustc --version 2>&1)]]"
     echo "[[$1-cargo:$(cargo --version 2>&1)]]"
     echo "[[$1-hello:$(hello 2>&1)]]"
+    echo "[[$1-deactivate_rustenv:$(type deactivate_rustenv | head -1)]]"
 }}
 
 report start
