@@ -31,15 +31,17 @@ _RUSTENV_NAME='{RUSTENV_NAME}'
 
 # TODO: it might be nice to intelligently add/remove from PATH/PS1 instead of
 # just restoring the old one
-_RUSTENV_OLD_PS1="$PS1"
+_RUSTENV_OLD_PS1="${{PS1-}}"
 _RUSTENV_OLD_PATH="$PATH"
 
 export PATH="$_RUSTENV_BIN_PATH:$PATH"
-export PS1="($_RUSTENV_NAME) $PS1"
+export PS1="($_RUSTENV_NAME) ${{PS1-}}"
 hash -r 2>/dev/null
 
 deactivate_rustenv() {{
-    export PS1="$_RUSTENV_OLD_PS1"
+    if ! [ -z "${{_RUSTENV_OLD_PS1+_}}" ] ; then
+        export PS1="$_RUSTENV_OLD_PS1"
+    fi
     export PATH="$_RUSTENV_OLD_PATH"
     hash -r 2>/dev/null
 

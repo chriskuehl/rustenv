@@ -102,3 +102,16 @@ def test_runenv_shell(shell, not_found_message, built_rustenv, tmpdir):
 
     assert stages['installed']['hello'] == 'Hello World!'
     assert stages['uninstalled'] == stages['activated']
+
+
+@pytest.mark.parametrize('shell', ('bash', 'zsh'))
+def test_works_without_ps1(shell, built_rustenv, tmpdir):
+    test_script = tmpdir.join('test.sh')
+    test_script.write(
+        """
+        unset PS1
+        set -euo pipefail
+        . {}/bin/activate
+        """.format(built_rustenv.strpath),
+    )
+    subprocess.check_output((shell, test_script.strpath))
