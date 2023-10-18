@@ -139,12 +139,12 @@ def _new_directory_type(path: str) -> str:
         return path
 
 
-def print_version():
+def print_version() -> None:
     try:
         version = importlib.metadata.version(__name__)
-        print(f'Version: {version}')
+        print(f"Version: {version}")
     except importlib.metadata.PackageNotFoundError:
-        print('Version information not found.')
+        print("Version information not found.")
 
 
 def main(argv: Sequence[str] | None = None) -> int:
