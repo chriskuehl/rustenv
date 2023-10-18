@@ -138,13 +138,13 @@ def _new_directory_type(path: str) -> str:
     else:
         return path
 
+
 def print_version():
     try:
         version = importlib.metadata.version(__name__)
-        print(f"Version: {version}")
+        print(f'Version: {version}')
     except importlib.metadata.PackageNotFoundError:
-        print("Version information not found.")
-
+        print('Version information not found.')
 
 
 def main(argv: Sequence[str] | None = None) -> int:
@@ -153,7 +153,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
     parser.add_argument(
-        "--version", action="store_true", help="show version information"
+        '--version', action='store_true', help='show version information',
     )
     parser.add_argument(
         'destination',
@@ -169,7 +169,7 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     if not args.destination:
         parser.error(
-            "'destination' argument is required unless '--version' is specified."
+            "'destination' argument is required unless '--version' is specified.",
         )
     create_rustenv(args.destination)
     return 0
