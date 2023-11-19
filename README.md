@@ -1,4 +1,4 @@
-[![Build Status](https://github.com/chriskuehl/rustenv/workflows/.github/workflows/main.yml/badge.svg)](https://github.com/chriskuehl/rustenv/actions)
+[![Build Status](https://github.com/chriskuehl/rustenv/actions/workflows/main.yml/badge.svg)](https://github.com/chriskuehl/rustenv/actions)
 [![PyPI version](https://badge.fury.io/py/rustenv.svg)](https://pypi.org/project/rustenv/)
 
 rustenv
