@@ -17,6 +17,7 @@ For example:
 from __future__ import annotations
 
 import argparse
+import importlib.metadata
 import os
 import shutil
 import subprocess
@@ -138,17 +139,38 @@ def _new_directory_type(path: str) -> str:
         return path
 
 
+def print_version() -> None:
+    try:
+        version = importlib.metadata.version(__name__)
+        print(f'Version: {version}')
+    except importlib.metadata.PackageNotFoundError:
+        print('Version information not found.')
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description=__doc__,
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
     parser.add_argument(
+        '--version', action='store_true', help='show version information',
+    )
+    parser.add_argument(
         'destination',
+        nargs='?',
         type=_new_directory_type,
         help='directory in which to create rustenv',
     )
     args = parser.parse_args(argv)
+
+    if args.version:
+        print_version()
+        return 0
+
+    if not args.destination:
+        parser.error(
+            "'destination' argument is required unless '--version' is specified.",
+        )
     create_rustenv(args.destination)
     return 0
 
