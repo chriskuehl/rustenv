@@ -22,7 +22,7 @@ import shutil
 import subprocess
 import tempfile
 import urllib.request
-from typing import Sequence
+from collections.abc import Sequence
 
 
 ACTIVATE = '''\
